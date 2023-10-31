@@ -11,3 +11,4 @@ date()
 ```
 The text continues here.
 
+I am both excited and nervous about this course, as I have a lot to learn but I may take quite some time to learn everything. I expect to understand how to explore and analyse my data better using open software, and gain more confidence in using R and GitHub, and become more comfortable and patient with myself when I make mistakes instead of quitting and going for simpler analyses. I heard about this course through the university email.
