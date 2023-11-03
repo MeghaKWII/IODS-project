@@ -16,3 +16,19 @@ I am both excited and nervous about this course, as I have a lot to learn but I 
 The R for Health Data Science book and the Exercise Set 1 make the subject very enjoyable, especially because it does not require one to simply read and memorise things. Following the instructions and running the program halps understand and remember the things the text describes. However, it will still take me a few repetions of this crash course to fully grasp some concepts.
 
 Regarding the content of the book, I liked Chapter 4, titled "Different types of plots", and am looking forward to the next chapters required for the next assignments. (I will still need to go through the chapters and exercises multiple times to gain confidence)
+
+GitHub Repository: https://github.com/MeghaKWII/IODS-project
+
+```{r}
+#Creating a Personal Access Token (PAT)
+install.packages("usethis")
+usethis::create_github_token()
+```
+
+Personal Access Token: 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
+
+```{r}
+# Accessing PAT
+gitcreds::gitcreds_set()
+
+```
