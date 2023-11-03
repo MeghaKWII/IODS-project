@@ -13,7 +13,7 @@ The text continues here.
 
 I am both excited and nervous about this course, as I have a lot to learn but I may take quite some time to learn everything. I expect to understand how to explore and analyse my data better using open software, and gain more confidence in using R and GitHub, and become more comfortable and patient with myself when I make mistakes instead of quitting and going for simpler analyses. I heard about this course through the university email.
 
-The R for Health Data Science book and the Exercise Set 1 make the subject very enjoyable, especially because it does not require one to simply read and memorise things. Following the instructions and running the program halps understand and remember the things the text describes. However, it will still take me a few repetions of this crash course to fully grasp some concepts.
+The R for Health Data Science book and the Exercise Set 1 make the subject very enjoyable, especially because it does not require one to simply read and memorise things. Following the instructions and running the program helps understand and remember the things the text describes. However, it will still take me a few repetions of this crash course to fully grasp some concepts.
 
 Regarding the content of the book, I liked Chapter 4, titled "Different types of plots", and am looking forward to the next chapters required for the next assignments. (I will still need to go through the chapters and exercises multiple times to gain confidence)
 
