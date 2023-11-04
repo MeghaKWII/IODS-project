@@ -384,8 +384,6 @@ pre code {
 to Open Data Science - Course Project</a></li>
 <li><a href="#about-the-project" id="toc-about-the-project">About the
 project</a></li>
-<li><a href="#insert-chapter-2-title-here" id="toc-insert-chapter-2-title-here">Insert chapter 2 title
-here</a></li>
 </ul>
 </div>
 
@@ -401,7 +399,7 @@ use R Markdown syntax.</em></p>
 <pre class="r"><code># This is a so-called &quot;R chunk&quot; where you can write R code.
 
 date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov  3 11:50:46 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Sat Nov  4 17:12:50 2023&quot;</code></pre>
 <p>The text continues here.</p>
 <p>I am both excited and nervous about this course, as I have a lot to
 learn but I may take quite some time to learn everything. I expect to
@@ -413,24 +411,47 @@ through the university email.</p>
 <p>The R for Health Data Science book and the Exercise Set 1 make the
 subject very enjoyable, especially because it does not require one to
 simply read and memorise things. Following the instructions and running
-the program halps understand and remember the things the text describes.
-However, it will still take me a few repitions of this crash course to
-fully grasp some concepts</p>
-<hr />
-</div>
-<div id="insert-chapter-2-title-here" class="section level1">
-<h1>Insert chapter 2 title here</h1>
-<p><em>Describe the work you have done this week and summarize your
-learning.</em></p>
-<ul>
-<li>Describe your work and results clearly.</li>
-<li>Assume the reader has an introductory course level understanding of
-writing and reading R code as well as statistical methods.</li>
-<li>Assume the reader has no previous knowledge of your data or the more
-advanced methods you are using.</li>
-</ul>
-<pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov  3 11:50:46 2023&quot;</code></pre>
+the program helps understand and remember the things the text describes.
+However, it will still take me a few repetitions of this crash course to
+fully grasp some concepts.</p>
+<p>Regarding the content of the book, I liked Chapter 4, titled
+<strong>“Different types of plots”</strong>, and am looking forward to
+the next chapters required for the next assignments. (I will still need
+to go through the chapters and exercises multiple times to gain
+confidence).</p>
+<p>GitHub Repository: <a href="https://github.com/MeghaKWII/IODS-project" class="uri">https://github.com/MeghaKWII/IODS-project</a></p>
+<pre class="r"><code># Setting up PAT
+##Tried to change repository because of error, seems to work
+options(repos = list(CRAN=&quot;http://cran.rstudio.com/&quot;))
+install.packages(&quot;usethis&quot;)</code></pre>
+<pre><code>## Installing package into &#39;C:/Users/Megha Khanduri/AppData/Local/R/win-library/4.2&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## package &#39;usethis&#39; successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\Megha Khanduri\AppData\Local\Temp\RtmpK6frtr\downloaded_packages</code></pre>
+<pre class="r"><code>usethis::create_github_token()</code></pre>
+<pre><code>## • Call `gitcreds::gitcreds_set()` to register this token in the local Git credential store
+##   It is also a great idea to store this token in any password-management software that you use</code></pre>
+<pre><code>## • Open URL
+## &#39;https://github.com/settings/tokens/new?scopes=repo,user,gist,workflow&amp;description=DESCRIBE
+## THE TOKEN\&#39;S USE CASE&#39;</code></pre>
+<pre><code>  
+***
+  
+
+# Insert chapter 2 title here
+
+*Describe the work you have done this week and summarize your learning.*
+
+- Describe your work and results clearly. 
+- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
+- Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
+
+
+```r
+date()</code></pre>
+<pre><code>## [1] &quot;Sat Nov  4 17:12:58 2023&quot;</code></pre>
 <p>Here we go again…</p>
 <hr />
 <p>(more chapters to be added similarly as we proceed with the
