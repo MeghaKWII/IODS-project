@@ -366,7 +366,7 @@ use R Markdown syntax.</em></p>
 <pre class="r"><code># This is a so-called &quot;R chunk&quot; where you can write R code.
 
 date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov  3 16:17:17 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Sat Nov  4 17:11:32 2023&quot;</code></pre>
 <p>The text continues here.</p>
 <p>I am both excited and nervous about this course, as I have a lot to
 learn but I may take quite some time to learn everything. I expect to
@@ -387,8 +387,23 @@ the next chapters required for the next assignments. (I will still need
 to go through the chapters and exercises multiple times to gain
 confidence).</p>
 <p>GitHub Repository: <a href="https://github.com/MeghaKWII/IODS-project" class="uri">https://github.com/MeghaKWII/IODS-project</a></p>
-<pre><code>
-</code></pre>
+<pre class="r"><code># Setting up PAT
+##Tried to change repository because of error, seems to work
+options(repos = list(CRAN=&quot;http://cran.rstudio.com/&quot;))
+install.packages(&quot;usethis&quot;)</code></pre>
+<pre><code>## Installing package into &#39;C:/Users/Megha Khanduri/AppData/Local/R/win-library/4.2&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## package &#39;usethis&#39; successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\Megha Khanduri\AppData\Local\Temp\RtmpIl77Jm\downloaded_packages</code></pre>
+<pre class="r"><code>usethis::create_github_token()</code></pre>
+<pre><code>## • Call `gitcreds::gitcreds_set()` to register this token in the local Git credential store
+##   It is also a great idea to store this token in any password-management software that you use</code></pre>
+<pre><code>## • Open URL
+## &#39;https://github.com/settings/tokens/new?scopes=repo,user,gist,workflow&amp;description=DESCRIBE
+## THE TOKEN\&#39;S USE CASE&#39;</code></pre>
+<p>```</p>
 </div>
 
 
