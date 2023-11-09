@@ -13,6 +13,8 @@ date()
 
 # Chapter 2: Regression and Model Validation
 
+The present chapter explores the dataset from the International Survey of Approaches to Learning. The data uses several variables to measure learning strategies and approaches, understanding and attitute of people towards statistics. This data will be further explained as we move forward in this chapter
+
 ## **Part 1: Data Wrangling**
 ## Reading data
 
@@ -130,4 +132,88 @@ learn$stra <- rowMeans(strategic_columns)
 
 
 ```
+Now these columns can be extracted from the original table and made into a table of their own, as it makes working with the data easier.
 
+```{r, echo=FALSE}
+# Pre-exercise-code (Run this code chunk first! Do NOT edit it.)
+
+# Click the green arrow ("Run Current Chunk") in the upper-right corner of this chunk. This will initialize the R objects needed in the exercise. Then move to Instructions of the exercise to start working.
+
+learn <- read.table("http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt", sep="\t", header=TRUE)
+learn$attitude <- learn$Attitude / 10
+deep_questions <- c("D03", "D11", "D19", "D27", "D07", "D14", "D22", "D30","D06",  "D15", "D23", "D31")
+learn$deep <- rowMeans(learn[, deep_questions])
+surface_questions <- c("SU02","SU10","SU18","SU26", "SU05","SU13","SU21","SU29","SU08","SU16","SU24","SU32")
+learn$surf <- rowMeans(learn[, surface_questions])
+strategic_questions <- c("ST01","ST09","ST17","ST25","ST04","ST12","ST20","ST28")
+learn$stra <- rowMeans(learn[, strategic_questions])
+keep_columns <- c("gender","Age","attitude", "deep", "stra", "surf", "Points")
+
+# select the 'keep_columns' to create a new dataset
+learn_an <- keep_columns
+learn_an
+
+```
+
+```{r}
+# veiw the columns
+learn$deep
+learn$surf
+learn$stra
+```
+
+### Choosing the columns we will be using for our analysis, and creating a subset:
+
+```{r}
+library(dplyr)
+
+# The subset function appears to have worked better for me, rather than selecting columns as explained in exercise 2
+
+## We call this new subset "learn_an" (an=analysis)
+
+learn_an <- subset(learn, select = c("gender","Age","attitude", "deep", "stra", "surf", "Points"))
+
+DT::datatable(learn_an, options = list(pageLength = 20))
+
+
+```
+### Excluding zeroes from our new subset
+
+Zeroes in the column "Points" represent students not taking the exam, so these observations will not be used in our analysis. 
+
+```{r}
+# We create another subset called "analysis", which excludes all rows where the value for Points is 0.
+
+analysis<-subset(learn_an, Points!="0")
+
+dim(analysis)
+
+#  Our new dataset "analysis" has 166 observations for 7 variables now. This is the data we will be using for our analyses
+DT::datatable(analysis, options = list(pageLength = 20))
+```
+## Exporting the data
+
+```{r}
+# Set working directory to a local file on the device so the data may be saved and read from there
+
+setwd("C:/Users/Megha Khanduri/OneDrive/Desktop/maximum effort/ELP Ganga Basin/courses/IODS/IODS-project/data")
+```
+Exporting the data as a csv file requires the writecsv function, for which readr library must be accessed. Therefore,
+```{r}
+library(readr)
+
+write.csv(analysis, file = "learning2014.csv")
+
+```
+Let's see if it worked, and if the file can be read.
+```{r}
+learning2014 <- read_csv("C:/Users/Megha Khanduri/OneDrive/Desktop/maximum effort/ELP Ganga Basin/courses/IODS/IODS-project/learning2014.csv")
+DT::datatable(learning2014, options = list(pageLength = 20))
+```
+Let's see if the structure of this dataset is correct
+```{r}
+str(learning2014)
+
+head(learning2014)
+```
+**This concludes the data wrangling section of the chapter. Next, we will move to analysing the data.**
