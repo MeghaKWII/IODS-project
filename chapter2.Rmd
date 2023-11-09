@@ -1,4 +1,4 @@
-# Insert chapter 2 title here
+# Regression and Model Validation
 
 *Describe the work you have done this week and summarize your learning.*
 
@@ -6,8 +6,128 @@
 - Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
 - Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
 
+The present chapter explores the dataset from the International Survey of Approaches to Learning. The data uses several variables to measure learning strategies and approaches, understanding and attitute of people towards statistics. This data will be further explained as we move forward in this chapter
 ```{r}
 date()
 ```
 
-Here we go again...
+# Chapter 2: Regression and Model Validation
+
+## **Part 1: Data Wrangling**
+## Reading data
+
+Reading the table from the web
+read.table()only allows us to read the data. To be able to make changes to it, we need to store it in R. For this, we save it by the name "learn"
+
+```{r}
+options(repos = list(CRAN="http://cran.rstudio.com/"))
+install.packages("DT")
+learn <- read.table("http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt", sep="\t", header=TRUE)
+DT::datatable(learn, options = list(pageLength = 20))
+# the DT package helps limit the table view to 20 rows at a time - it is a pretty large dataset
+```
+
+
+
+## Dimension and Structure of the dataset
+
+### Dimensions of "learn"
+
+```{r}
+
+dim(learn)
+
+
+#The table "learn" has 183 rows and 60 columns. However, this is also mentioned right below the table.
+```
+### Looking at the structure
+```{r}
+str(learn)
+
+# All variables of integer type, except for gender, which is a character type
+```
+
+## Creating an Analysis dataset
+
+As previosly mentioned,this dataset records variables to assess learning, understanding and attitudes of people towards statistics. The next steps take a look at some of these variables, namely
+
+* Attitude: Global attitude toward statistics
+
+* Deep: Deep approach to learning, which involves gaining an in-depth understanding
+
+* Surf: Surface approach, consisting primarily of memorizing without understanding
+
+* Stra: Strategic approach, which students apply in the face of constraints such as deadlines and syllabus
+
+
+### 1. Scaling vectors to their original values:
+
+
+Now, to create an analysis dataset, we need to keep in mind that some parameters are aggregates of two or more variables. These are:
+
+1. Attitude = Da + Db + Dc + Dd + De + Df + Dg + Dh + Di + Dj
+
+2. **Deep = d_sm + d_ri + d_ue**, and
+  
+  + d_sm = D03 + D11 + D19 + D27
+  
+  + d_ri = D07 + D14 + D22 + D30
+  
+  + d_ue = D06 + D15 + D23 + D31
+
+3. **Stra = st_os + st_tm**, where
+
+  + st_os = ST01 + ST09 + ST17 + ST25
+  
+  + st_tm = ST04 + ST12 + ST20 + ST28
+
+4. **Surf = su_lp + su_um + su_sb**, where
+
+  + su_lp = SU02 + SU10 + SU18 + SU26
+  
+  + su_um = SU05 + SU13 + SU21 + SU29
+  
+  + su_sb = SU08 + SU16 + SU24 + SU32
+
+In order to **scale** Attitude, we need to divide it by the number of variables that constitute it.This is easily done by creating a new variable and assigning the new value to it
+
+Hence,
+
+```{r}
+
+# divide each number in the column "Attitude" by 10
+
+# create column 'attitude' by scaling the column "Attitude"
+learn$attitude <- learn$Attitude / 10
+
+```
+Now for the other variables, since "deep", "Surf" and "stra" do not exist in this dataset, we must create them by aggregating and averaging their constituents
+
+*But first, lemme access the dplyr library*
+
+```{r}
+library(dplyr)
+# questions related to deep, surface and strategic learning
+deep_questions <- c("D03", "D11", "D19", "D27", "D07", "D14", "D22", "D30","D06",  "D15", "D23", "D31")
+surface_questions <- c("SU02","SU10","SU18","SU26", "SU05","SU13","SU21","SU29","SU08","SU16","SU24","SU32")
+strategic_questions <- c("ST01","ST09","ST17","ST25","ST04","ST12","ST20","ST28")
+
+# select the columns related to deep learning 
+deep_columns <- select(learn, one_of(deep_questions))
+# and create column 'deep' by averaging
+learn$deep <- rowMeans(deep_columns)
+
+# select the columns related to surface learning 
+surface_columns <- select(learn, one_of(surface_questions))
+# and create column 'surf' by averaging
+learn$surf <- rowMeans(surface_columns)
+
+# select the columns related to strategic learning 
+strategic_columns <- select(learn, one_of(strategic_questions))
+# and create column 'stra' by averaging
+learn$stra <- rowMeans(strategic_columns)
+# and create column 'stra' by averaging
+
+
+```
+
