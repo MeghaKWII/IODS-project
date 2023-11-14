@@ -61,4 +61,11 @@ for(col_name in free_cols) {
 }
 glimpse(alc)
 
+# define a new column alc_use by combining weekday and weekend alcohol use
+alc <- mutate(alc, alc_use = (Dalc + Walc) / 2)
+
+# determine which rows show high alcohol consumption
+alc <- mutate(alc, high_use = alc_use > 2)
+
+glimpse(alc)
 write.csv(alc, file = "alc.csv")
