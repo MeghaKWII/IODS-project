@@ -11,7 +11,7 @@
 
 <meta name="author" content="Megha Khanduri" />
 
-<meta name="date" content="2023-11-24" />
+<meta name="date" content="2023-11-26" />
 
 <title>Chapter4</title>
 
@@ -358,7 +358,7 @@ pre code {
 
 <h1 class="title toc-ignore">Chapter4</h1>
 <h4 class="author">Megha Khanduri</h4>
-<h4 class="date">2023-11-24</h4>
+<h4 class="date">2023-11-26</h4>
 
 </div>
 
@@ -367,49 +367,8 @@ pre code {
 <h1>Chapter 4: Clustering and Classification</h1>
 <p>Packages:</p>
 <pre class="r"><code>options(repos = list(CRAN=&quot;http://cran.rstudio.com/&quot;))
-install.packages(c(&quot;MASS&quot;, &quot;corrplot&quot;, &quot;dplyr&quot;, &quot;tidyverse&quot;, &quot;ggplot2&quot;, &quot;GGally&quot;, &quot;DT&quot;, &quot;readr&quot; ))</code></pre>
-<pre><code>## Installing packages into &#39;C:/Users/Megha Khanduri/AppData/Local/R/win-library/4.2&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## 
-##   There is a binary version available but the source version is later:
-##        binary source needs_compilation
-## GGally  2.1.2  2.2.0             FALSE
-## 
-## package &#39;MASS&#39; successfully unpacked and MD5 sums checked</code></pre>
-<pre><code>## Warning: cannot remove prior installation of package &#39;MASS&#39;</code></pre>
-<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-## C:\Users\Megha
-## Khanduri\AppData\Local\R\win-library\4.2\00LOCK\MASS\libs\x64\MASS.dll to
-## C:\Users\Megha Khanduri\AppData\Local\R\win-library\4.2\MASS\libs\x64\MASS.dll:
-## Permission denied</code></pre>
-<pre><code>## Warning: restored &#39;MASS&#39;</code></pre>
-<pre><code>## package &#39;corrplot&#39; successfully unpacked and MD5 sums checked
-## package &#39;dplyr&#39; successfully unpacked and MD5 sums checked</code></pre>
-<pre><code>## Warning: cannot remove prior installation of package &#39;dplyr&#39;</code></pre>
-<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-## C:\Users\Megha
-## Khanduri\AppData\Local\R\win-library\4.2\00LOCK\dplyr\libs\x64\dplyr.dll to
-## C:\Users\Megha
-## Khanduri\AppData\Local\R\win-library\4.2\dplyr\libs\x64\dplyr.dll: Permission
-## denied</code></pre>
-<pre><code>## Warning: restored &#39;dplyr&#39;</code></pre>
-<pre><code>## package &#39;tidyverse&#39; successfully unpacked and MD5 sums checked
-## package &#39;ggplot2&#39; successfully unpacked and MD5 sums checked
-## package &#39;DT&#39; successfully unpacked and MD5 sums checked
-## package &#39;readr&#39; successfully unpacked and MD5 sums checked</code></pre>
-<pre><code>## Warning: cannot remove prior installation of package &#39;readr&#39;</code></pre>
-<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-## C:\Users\Megha
-## Khanduri\AppData\Local\R\win-library\4.2\00LOCK\readr\libs\x64\readr.dll to
-## C:\Users\Megha
-## Khanduri\AppData\Local\R\win-library\4.2\readr\libs\x64\readr.dll: Permission
-## denied</code></pre>
-<pre><code>## Warning: restored &#39;readr&#39;</code></pre>
-<pre><code>## 
-## The downloaded binary packages are in
-##  C:\Users\Megha Khanduri\AppData\Local\Temp\RtmpMVPz2x\downloaded_packages</code></pre>
-<pre><code>## installing the source package &#39;GGally&#39;</code></pre>
-<pre class="r"><code>library(MASS)
+
+library(MASS)
 library(corrplot)</code></pre>
 <pre><code>## corrplot 0.92 loaded</code></pre>
 <pre class="r"><code>library(readr)
@@ -519,9 +478,260 @@ Summary of relationships:</p>
 ## medv     0.33346082 -0.7376627  1.0000000</code></pre>
 <div id="relationships-between-variables" class="section level2">
 <h2>Relationships between variables:</h2>
+<p>We will start with the per capita crime rate (crime) as it is the
+parameter we will be observing in this exercise</p>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>The crime rate shows a highy positive correlation with</li>
 </ol>
+<ul>
+<li><p>higher proportion of non-retail businesses (indus),</p></li>
+<li><p>nitrous oxide levels (nox),</p></li>
+<li><p>accessibility to radial highways (rad), and</p></li>
+<li><p>property tax rates (tax)</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Crime rate is negatively correlated with:</li>
+</ol>
+<ul>
+<li><p>Distance to the employment centres (dis)</p></li>
+<li><p>Proportion of the black population (black) (Racists will say this
+is fake)</p></li>
+<li><p>value of owner-occupied homes (medv)</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>The most strongly correlated variables:</li>
+</ol>
+<ul>
+<li><p>proportion of non-retail businesses and distance to the
+employment centres: <strong>negative correlation</strong></p></li>
+<li><p>proportion of non-retail businesses and nitrous oxide levels:
+<strong>positive correlation</strong> (makes sense- industrialization
+and not very healthy emissions go hand in hand)</p></li>
+<li><p>proportion of owner-occupied units built prior to 1940 (age) and
+distance to the employment centres: <strong>negative
+correlation</strong> (It appears the employment centres were built away
+from residential areas)</p></li>
+</ul>
+</div>
+<div id="scaling-the-dataset" class="section level2">
+<h2>Scaling the dataset</h2>
+<p>Scaling the entire datast as all variables have numerical values</p>
+<pre class="r"><code>boston_scaled &lt;- scale(Boston)
+summary(boston_scaled)</code></pre>
+<pre><code>##       crim                 zn               indus              chas        
+##  Min.   :-0.419367   Min.   :-0.48724   Min.   :-1.5563   Min.   :-0.2723  
+##  1st Qu.:-0.410563   1st Qu.:-0.48724   1st Qu.:-0.8668   1st Qu.:-0.2723  
+##  Median :-0.390280   Median :-0.48724   Median :-0.2109   Median :-0.2723  
+##  Mean   : 0.000000   Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 0.007389   3rd Qu.: 0.04872   3rd Qu.: 1.0150   3rd Qu.:-0.2723  
+##  Max.   : 9.924110   Max.   : 3.80047   Max.   : 2.4202   Max.   : 3.6648  
+##       nox                rm               age               dis         
+##  Min.   :-1.4644   Min.   :-3.8764   Min.   :-2.3331   Min.   :-1.2658  
+##  1st Qu.:-0.9121   1st Qu.:-0.5681   1st Qu.:-0.8366   1st Qu.:-0.8049  
+##  Median :-0.1441   Median :-0.1084   Median : 0.3171   Median :-0.2790  
+##  Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 0.5981   3rd Qu.: 0.4823   3rd Qu.: 0.9059   3rd Qu.: 0.6617  
+##  Max.   : 2.7296   Max.   : 3.5515   Max.   : 1.1164   Max.   : 3.9566  
+##       rad               tax             ptratio            black        
+##  Min.   :-0.9819   Min.   :-1.3127   Min.   :-2.7047   Min.   :-3.9033  
+##  1st Qu.:-0.6373   1st Qu.:-0.7668   1st Qu.:-0.4876   1st Qu.: 0.2049  
+##  Median :-0.5225   Median :-0.4642   Median : 0.2746   Median : 0.3808  
+##  Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 1.6596   3rd Qu.: 1.5294   3rd Qu.: 0.8058   3rd Qu.: 0.4332  
+##  Max.   : 1.6596   Max.   : 1.7964   Max.   : 1.6372   Max.   : 0.4406  
+##      lstat              medv        
+##  Min.   :-1.5296   Min.   :-1.9063  
+##  1st Qu.:-0.7986   1st Qu.:-0.5989  
+##  Median :-0.1811   Median :-0.1449  
+##  Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 0.6024   3rd Qu.: 0.2683  
+##  Max.   : 3.5453   Max.   : 2.9865</code></pre>
+<pre class="r"><code># converting the scaled dataset to a dataframe for analyses
+
+boston_scaled &lt;- as.data.frame(boston_scaled)</code></pre>
+<pre class="r"><code>summary(Boston)</code></pre>
+<pre><code>##       crim                zn             indus            chas        
+##  Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46   Min.   :0.00000  
+##  1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19   1st Qu.:0.00000  
+##  Median : 0.25651   Median :  0.00   Median : 9.69   Median :0.00000  
+##  Mean   : 3.61352   Mean   : 11.36   Mean   :11.14   Mean   :0.06917  
+##  3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10   3rd Qu.:0.00000  
+##  Max.   :88.97620   Max.   :100.00   Max.   :27.74   Max.   :1.00000  
+##       nox               rm             age              dis        
+##  Min.   :0.3850   Min.   :3.561   Min.   :  2.90   Min.   : 1.130  
+##  1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02   1st Qu.: 2.100  
+##  Median :0.5380   Median :6.208   Median : 77.50   Median : 3.207  
+##  Mean   :0.5547   Mean   :6.285   Mean   : 68.57   Mean   : 3.795  
+##  3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08   3rd Qu.: 5.188  
+##  Max.   :0.8710   Max.   :8.780   Max.   :100.00   Max.   :12.127  
+##       rad              tax           ptratio          black       
+##  Min.   : 1.000   Min.   :187.0   Min.   :12.60   Min.   :  0.32  
+##  1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40   1st Qu.:375.38  
+##  Median : 5.000   Median :330.0   Median :19.05   Median :391.44  
+##  Mean   : 9.549   Mean   :408.2   Mean   :18.46   Mean   :356.67  
+##  3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20   3rd Qu.:396.23  
+##  Max.   :24.000   Max.   :711.0   Max.   :22.00   Max.   :396.90  
+##      lstat            medv      
+##  Min.   : 1.73   Min.   : 5.00  
+##  1st Qu.: 6.95   1st Qu.:17.02  
+##  Median :11.36   Median :21.20  
+##  Mean   :12.65   Mean   :22.53  
+##  3rd Qu.:16.95   3rd Qu.:25.00  
+##  Max.   :37.97   Max.   :50.00</code></pre>
+<p>We can see that integers have been converted to decimal values now.
+Hence we now have a dataset with all continuous variables, with both
+positive and negative values.</p>
+<p>Now, we will start to look at the relationships of the per capita
+crime rate with other variables.</p>
+<p>Converting the new scaled crime rate (crim) to factor with the
+quantiles as intervals. We will label this variable “crime”:</p>
+<pre class="r"><code>boston_scaled$crim &lt;- as.numeric(boston_scaled$crim)
+
+bins &lt;- quantile(boston_scaled$crim)
+
+
+crime &lt;- cut(boston_scaled$crim, breaks = bins, include.lowest = TRUE)
+
+boston_scaled &lt;- dplyr::select(boston_scaled, -crim)
+
+boston_scaled &lt;- data.frame(boston_scaled, crime)
+
+boston_scaled$crime</code></pre>
+<pre><code>##   [1] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##   [5] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+##   [9] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+##  [13] (-0.411,-0.39]  (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+##  [17] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+##  [21] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+##  [25] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+##  [29] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+##  [33] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] [-0.419,-0.411]
+##  [37] (-0.411,-0.39]  [-0.419,-0.411] (-0.411,-0.39]  [-0.419,-0.411]
+##  [41] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+##  [45] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+##  [49] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411]
+##  [53] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##  [57] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+##  [61] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+##  [65] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##  [69] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+##  [73] (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411] (-0.411,-0.39] 
+##  [77] (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411] (-0.411,-0.39] 
+##  [81] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##  [85] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##  [89] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+##  [93] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39] 
+##  [97] (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411]
+## [101] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [105] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [109] (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39]  (-0.411,-0.39] 
+## [113] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [117] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [121] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+## [125] (-0.411,-0.39]  (-0.411,-0.39]  (-0.39,0.00739] (-0.39,0.00739]
+## [129] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [133] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [137] (-0.39,0.00739] (-0.39,0.00739] (-0.411,-0.39]  (-0.39,0.00739]
+## [141] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (0.00739,9.92] 
+## [145] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [149] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [153] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [157] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [161] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [165] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [169] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [173] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411]
+## [177] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [181] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+## [185] (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [189] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411]
+## [193] (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [197] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [201] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [205] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [209] (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39]  (-0.39,0.00739]
+## [213] (-0.411,-0.39]  (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39] 
+## [217] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+## [221] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [225] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [229] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [233] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [237] (-0.39,0.00739] (-0.39,0.00739] (-0.411,-0.39]  (-0.411,-0.39] 
+## [241] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [245] (-0.411,-0.39]  (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39] 
+## [249] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [253] (-0.411,-0.39]  (-0.39,0.00739] [-0.419,-0.411] [-0.419,-0.411]
+## [257] [-0.419,-0.411] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [261] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [265] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [269] (-0.39,0.00739] (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39] 
+## [273] (-0.411,-0.39]  (-0.411,-0.39]  [-0.419,-0.411] (-0.411,-0.39] 
+## [277] (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39] 
+## [281] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [285] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [289] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [293] [-0.419,-0.411] (-0.411,-0.39]  [-0.419,-0.411] (-0.411,-0.39] 
+## [297] [-0.419,-0.411] (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411]
+## [301] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39]  (-0.411,-0.39] 
+## [305] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [309] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739]
+## [313] (-0.39,0.00739] (-0.39,0.00739] (-0.39,0.00739] (-0.411,-0.39] 
+## [317] (-0.39,0.00739] (-0.411,-0.39]  (-0.39,0.00739] (-0.39,0.00739]
+## [321] (-0.411,-0.39]  (-0.411,-0.39]  (-0.39,0.00739] (-0.39,0.00739]
+## [325] (-0.39,0.00739] (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39] 
+## [329] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [333] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [337] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [341] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [345] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [349] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [353] [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411] (-0.411,-0.39] 
+## [357] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [361] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [365] (-0.39,0.00739] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [369] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [373] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [377] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [381] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [385] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [389] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [393] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [397] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [401] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [405] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [409] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [413] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [417] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [421] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [425] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [429] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [433] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [437] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [441] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [445] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [449] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [453] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [457] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [461] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [465] (0.00739,9.92]  (-0.39,0.00739] (0.00739,9.92]  (0.00739,9.92] 
+## [469] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [473] (-0.39,0.00739] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [477] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92] 
+## [481] (0.00739,9.92]  (0.00739,9.92]  (0.00739,9.92]  (-0.39,0.00739]
+## [485] (-0.39,0.00739] (-0.39,0.00739] (0.00739,9.92]  (0.00739,9.92] 
+## [489] (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39]  (-0.411,-0.39] 
+## [493] (-0.411,-0.39]  (-0.411,-0.39]  (-0.39,0.00739] (-0.411,-0.39] 
+## [497] (-0.39,0.00739] (-0.39,0.00739] (-0.411,-0.39]  (-0.411,-0.39] 
+## [501] (-0.411,-0.39]  [-0.419,-0.411] [-0.419,-0.411] [-0.419,-0.411]
+## [505] (-0.411,-0.39]  [-0.419,-0.411]
+## Levels: [-0.419,-0.411] (-0.411,-0.39] (-0.39,0.00739] (0.00739,9.92]</code></pre>
+<p>The new variable “crime” has been divided into four levels:</p>
+<ul>
+<li><p>-0.419 to -0.411</p></li>
+<li><p>-0.411 to -0.39</p></li>
+<li><p>-0.39 to 0.00739</p></li>
+<li><p>0.00739 to 9.92</p></li>
+</ul>
 </div>
 </div>
 
