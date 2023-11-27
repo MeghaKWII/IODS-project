@@ -37,3 +37,19 @@ names(gii)[8] <- "Edu2.M"
 names(gii)[9] <-"Labo.F"
 names(gii)[10] <- "Labo.M"
 gii
+
+
+# mutating GII dataset
+
+gii$Edu2FM <- gii$Edu2.F/gii$Edu2.M 
+gii$Labo.FM <- gii$Labo.F / gii$Labo.M
+
+# Merging datasets by country:
+
+human <- inner_join(hd, gii, by = "country", suffix = c(".hd", ".gii"))
+
+dim(human)
+
+library(readr)
+
+write.csv(human, file = "human")
